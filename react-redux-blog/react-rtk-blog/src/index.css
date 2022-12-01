@@ -28,7 +28,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  background-color: purple;
+  background-color: orangered;
   color: whitesmoke;
   position: sticky;
   top: 0;
@@ -64,6 +64,7 @@ main {
 
 section {
   margin-top: 1em;
+  padding: 10px;
 }
 
 article {

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import { addNewPost, postAdded } from "./postSlice";
 import { selectAllUsers } from "../users/usersSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddPostForm = () => {
   const [title, setTitle] = useState("");
@@ -11,6 +12,7 @@ const AddPostForm = () => {
   const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const users = useSelector(selectAllUsers);
 
   const canSave = [title, content, userId].every(Boolean) && addRequestStatus === "idle";
@@ -25,6 +27,7 @@ const AddPostForm = () => {
         setTitle("");
         setContent("");
         setUserId("");
+        navigate("/")
       }catch(err) {
         console.log("failed to add new post", err)
       }finally{

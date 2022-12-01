@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { selectAllUsers } from "../users/usersSlice";
-import { selectPostById, updatePost } from "./postSlice";
+import { deletePost, selectPostById, updatePost } from "./postSlice";
 
 const EditPostForm = () => {
   const { postId } = useParams();
@@ -51,7 +51,7 @@ const EditPostForm = () => {
         setTitle("");
         setContent("");
         setUserId("");
-        navigate(`/post/${postId}`)
+        navigate(`/post/${postId}`);
       } catch (err) {
         console.log("Failed to save the post", err);
       } finally {
@@ -66,10 +66,26 @@ const EditPostForm = () => {
     </option>
   ));
 
+  const onDeleteButtonClicked = () => {
+    try {
+      setRequestStatus("pending");
+      dispatch(deletePost({ id: post.id })).unwrap();
+
+      setTitle("");
+      setContent("");
+      setUserId("");
+      navigate("/");
+    } catch (err) {
+      console.log("Failed to delete the post", err);
+    } finally {
+      setRequestStatus("idle");
+    }
+  };
+
   return (
     <section>
       <h3>Edit post</h3>
-      <form  >
+      <form>
         <label htmlFor="postTitle">Post title:</label>
         <input
           type="text"
@@ -79,7 +95,11 @@ const EditPostForm = () => {
           onChange={onTitleChanged}
         />
         <label htmlFor="postAuthor">Author: </label>
-        <select id="postAuthor" defaultValue={userId} onChange={onUserIdChanged}>
+        <select
+          id="postAuthor"
+          defaultValue={userId}
+          onChange={onUserIdChanged}
+        >
           <option value=""></option>
           {userOptions}
         </select>
@@ -92,6 +112,14 @@ const EditPostForm = () => {
         />
         <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
           Save
+        </button>
+        <button
+          type="button"
+          onClick={onDeleteButtonClicked}
+          disabled={!canSave}
+          className="deleteButton"
+        >
+          Delete
         </button>
       </form>
     </section>
