@@ -1,15 +1,9 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import PostExerpt from "./PostExerpt";
-import {
-  
-  getPostsError,
-  getPostsStatus,
-  selectAllPosts,
-} from "./postSlice";
+import { getPostsError, getPostsStatus, selectAllPosts } from "./postSlice";
 
 const PostList = () => {
-
   const posts = useSelector(selectAllPosts);
   const postsStatus = useSelector(getPostsStatus);
   const error = useSelector(getPostsError);
@@ -28,11 +22,7 @@ const PostList = () => {
     content = <p>{error}</p>;
   }
 
-  return (
-    <section>
-      {content}
-    </section>
-  );
+  return <section>{content}</section>;
 };
 
 export default PostList;
