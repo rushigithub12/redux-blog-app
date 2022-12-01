@@ -29,7 +29,7 @@ header {
   justify-content: space-between;
   align-items: flex-start;
   background-color: orangered;
-  color: whitesmoke;
+  color: #e0e0eb;
   position: sticky;
   top: 0;
 }
@@ -72,6 +72,7 @@ article {
   border: 1px solid #000;
   border-radius: 10px;
   padding: 1em;
+  background-color: #e0e0eb;
 }
 
 h1 {
