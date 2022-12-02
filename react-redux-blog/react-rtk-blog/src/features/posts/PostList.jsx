@@ -1,10 +1,10 @@
 import { nanoid } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import PostExerpt from "./PostExerpt";
-import { getPostsError, getPostsStatus, selectAllPosts } from "./postSlice";
+import { getPostsError, getPostsStatus, selectPostIds } from "./postSlice";
 
 const PostList = () => {
-  const posts = useSelector(selectAllPosts);
+  const orderedPostIds = useSelector(selectPostIds)
   const postsStatus = useSelector(getPostsStatus);
   const error = useSelector(getPostsError);
 
@@ -12,12 +12,7 @@ const PostList = () => {
   if (postsStatus === "loading") {
     content = <p>Loading...</p>;
   } else if (postsStatus === "succeeded") {
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date));
-    content = orderedPosts.map((post) => (
-      <PostExerpt key={post.id} post={post} />
-    ));
+    content = orderedPostIds.map(postId => <PostExerpt key={postId} postId={postId} /> )
   } else if (postsStatus === "failed") {
     content = <p>{error}</p>;
   }

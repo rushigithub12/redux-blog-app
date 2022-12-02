@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
-import { addNewPost, postAdded } from "./postSlice";
+import { addNewPost } from "./postSlice";
 import { selectAllUsers } from "../users/usersSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const AddPostForm = () => {
     if(canSave){
       try{
         setAddRequestStatus("pending");
-        dispatch(addNewPost({ title, body: content, userId })).unwrap()
+        // dispatch(addNewPost({ title, body: content, userId })).unwrap()
 
         setTitle("");
         setContent("");
